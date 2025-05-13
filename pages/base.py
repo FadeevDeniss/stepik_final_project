@@ -1,5 +1,6 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.common.exceptions import TimeoutException
 
 
 class BasePage:
@@ -20,6 +21,12 @@ class BasePage:
             message=f'Elements {locator} not found'
         )
 
+    def element_is_present(self, locator: tuple[str, str], timeout: int = 10) -> bool:
+        try:
+            self.find_element(locator, timeout)
+        except TimeoutException:
+            return False
+        return True
+
     def open_page(self):
         self.browser.get(self.url)
-
