@@ -9,6 +9,9 @@ class BasePage:
         self.browser = browser
         self.url = url
 
+    def current_url(self) -> str:
+        return self.browser.current_url
+
     def find_element(self, locator: tuple[str, str], timeout: int = 10):
         return WebDriverWait(self.browser, timeout=timeout).until(
             ec.presence_of_element_located(locator),
