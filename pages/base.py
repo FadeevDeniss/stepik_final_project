@@ -76,10 +76,8 @@ class BasePage:
         self.browser.get(self.url)
 
     def open_login_page(self):
-        link = self.browser.find_element(self.LOCATOR_LOGIN_LINK)
+        link = self.find_element(self.LOCATOR_LOGIN_LINK)
         link.click()
-        alert = self.browser.switch_to.alert
-        alert.accept()
 
     def should_be_login_link(self) -> bool:
         return self.element_is_present(self.LOCATOR_LOGIN_LINK)

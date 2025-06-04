@@ -1,5 +1,6 @@
 import pytest
 
+from pages.login_page import LoginPage
 from .pages.product_page import ProductPage
 
 
@@ -58,3 +59,22 @@ def test_message_disappeared_after_adding_product_to_basket(browser, page_url):
 
     assert product_page.element_is_disappeared(locator=ProductPage.LOCATOR_PRODUCT_ADDED_MESSAGE), \
         'Message is not disappeared after adding product to basket'
+
+
+def test_guest_should_see_login_link_on_product_page(browser):
+    url = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    product_page = ProductPage(browser, url)
+    product_page.open_page()
+
+    assert product_page.should_be_login_link(), 'No login link is present on product page'
+
+
+def test_guest_can_go_to_login_page_from_product_page(browser, page_url):
+    product_page = ProductPage(browser, page_url)
+    product_page.open_page()
+    product_page.open_login_page()
+
+    login_page = LoginPage(browser, product_page.current_url)
+
+    assert login_page.should_be_login_url(), \
+        f"Can't go to login page from product page. Current url is {login_page.current_url}"
