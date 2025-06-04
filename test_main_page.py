@@ -12,7 +12,10 @@ def test_guest_can_go_to_login_page(browser):
 
     # Check that we are on a login page
     login_page = LoginPage(browser, browser.current_url)
-    login_page.should_be_login_page()
+
+    assert login_page.should_be_login_url(), 'No element \'login\'is presented'
+    assert login_page.should_be_login_form(), 'No element \'login form\'is presented'
+    assert login_page.should_be_register_form(), 'No element \'registration form\'is presented'
 
 
 def test_guest_should_see_login_link(browser):
