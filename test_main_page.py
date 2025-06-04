@@ -1,3 +1,4 @@
+from pages.basket_page import BasketPage
 from .pages.main_page import MainPage
 from .pages.login_page import LoginPage
 
@@ -25,3 +26,15 @@ def test_guest_should_see_login_link(browser):
     # Open main page and check login link
     page.open_page()
     assert page.should_be_login_link(), 'Login link not present.'
+
+
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
+    url = "http://selenium1py.pythonanywhere.com/"
+    main_page = MainPage(browser, url)
+    main_page.open_page()
+    main_page.open_basket_page()
+
+    basket_page = BasketPage(browser, main_page.current_url)
+
+    assert basket_page.basket_is_empty(), 'Basket has items in it'
+    assert basket_page.should_be_basket_empty_message(), 'There is no message of empty basket'

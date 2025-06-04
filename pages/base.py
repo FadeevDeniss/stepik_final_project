@@ -9,6 +9,7 @@ from selenium.common.exceptions import TimeoutException, NoAlertPresentException
 
 class BasePage:
     LOCATOR_LOGIN_LINK: tuple[str, str] = (By.CSS_SELECTOR, "#login_link")
+    LOCATOR_BASKET_LINK: tuple[str, str] = (By.CSS_SELECTOR, 'a[href="/ru/basket/"]')
     LOCATOR_LOGIN_LINK_INVALID: tuple[str, str] = (By.CSS_SELECTOR, "#login_link_inc")
 
     def __init__(self, browser, url):
@@ -77,6 +78,10 @@ class BasePage:
 
     def open_login_page(self):
         link = self.find_element(self.LOCATOR_LOGIN_LINK)
+        link.click()
+
+    def open_basket_page(self):
+        link = self.find_element(self.LOCATOR_BASKET_LINK)
         link.click()
 
     def should_be_login_link(self) -> bool:

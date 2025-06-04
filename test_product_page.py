@@ -1,5 +1,6 @@
 import pytest
 
+from pages.basket_page import BasketPage
 from pages.login_page import LoginPage
 from .pages.product_page import ProductPage
 
@@ -78,3 +79,14 @@ def test_guest_can_go_to_login_page_from_product_page(browser, page_url):
 
     assert login_page.should_be_login_url(), \
         f"Can't go to login page from product page. Current url is {login_page.current_url}"
+
+
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser, page_url):
+    product_page = ProductPage(browser, page_url)
+    product_page.open_page()
+    product_page.open_basket_page()
+
+    basket_page = BasketPage(browser, product_page.current_url)
+
+    assert basket_page.basket_is_empty(), 'Basket has items in it'
+    assert basket_page.should_be_basket_empty_message(), 'There is no message of empty basket'
