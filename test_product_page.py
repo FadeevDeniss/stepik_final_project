@@ -30,3 +30,31 @@ def test_guest_can_add_product_to_cart(browser, url):
         'Added product name and product name from description are not equal'
     assert product_page.product_added_price_should_be_equal_to_product_price(), \
         'Added product price and product price from description are not equal'
+
+
+@pytest.mark.xfail
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, page_url):
+    product_page = ProductPage(browser, page_url)
+    product_page.open_page()
+    product_page.add_to_cart()
+
+    assert product_page.element_is_not_present(locator=ProductPage.LOCATOR_PRODUCT_ADDED_MESSAGE), \
+        'Guest can see success message'
+
+
+def test_guest_cant_see_success_message(browser, page_url):
+    product_page = ProductPage(browser, page_url)
+    product_page.open_page()
+
+    assert product_page.element_is_not_present(locator=ProductPage.LOCATOR_PRODUCT_ADDED_MESSAGE), \
+        'Guest can see success message without adding a product to basket'
+
+
+@pytest.mark.xfail
+def test_message_disappeared_after_adding_product_to_basket(browser, page_url):
+    product_page = ProductPage(browser, page_url)
+    product_page.open_page()
+    product_page.add_to_cart()
+
+    assert product_page.element_is_disappeared(locator=ProductPage.LOCATOR_PRODUCT_ADDED_MESSAGE), \
+        'Message is not disappeared after adding product to basket'
