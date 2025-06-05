@@ -35,8 +35,8 @@ def test_guest_can_add_product_to_cart(browser, url):
 
 
 @pytest.mark.xfail
-def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, page_url):
-    product_page = ProductPage(browser, page_url)
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, product_page_url):
+    product_page = ProductPage(browser, product_page_url)
     product_page.open_page()
     product_page.add_to_cart()
 
@@ -44,8 +44,8 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, 
         'Guest can see success message'
 
 
-def test_guest_cant_see_success_message(browser, page_url):
-    product_page = ProductPage(browser, page_url)
+def test_guest_cant_see_success_message(browser, product_page_url):
+    product_page = ProductPage(browser, product_page_url)
     product_page.open_page()
 
     assert product_page.element_is_not_present(locator=ProductPage.LOCATOR_PRODUCT_ADDED_MESSAGE), \
@@ -53,8 +53,8 @@ def test_guest_cant_see_success_message(browser, page_url):
 
 
 @pytest.mark.xfail
-def test_message_disappeared_after_adding_product_to_basket(browser, page_url):
-    product_page = ProductPage(browser, page_url)
+def test_message_disappeared_after_adding_product_to_basket(browser, product_page_url):
+    product_page = ProductPage(browser, product_page_url)
     product_page.open_page()
     product_page.add_to_cart()
 
@@ -70,8 +70,8 @@ def test_guest_should_see_login_link_on_product_page(browser):
     assert product_page.should_be_login_link(), 'No login link is present on product page'
 
 
-def test_guest_can_go_to_login_page_from_product_page(browser, page_url):
-    product_page = ProductPage(browser, page_url)
+def test_guest_can_go_to_login_page_from_product_page(browser, product_page_url):
+    product_page = ProductPage(browser, product_page_url)
     product_page.open_page()
     product_page.open_login_page()
 
@@ -81,8 +81,8 @@ def test_guest_can_go_to_login_page_from_product_page(browser, page_url):
         f"Can't go to login page from product page. Current url is {login_page.current_url}"
 
 
-def test_guest_cant_see_product_in_basket_opened_from_main_page(browser, page_url):
-    product_page = ProductPage(browser, page_url)
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser, product_page_url):
+    product_page = ProductPage(browser, product_page_url)
     product_page.open_page()
     product_page.open_basket_page()
 

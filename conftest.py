@@ -1,6 +1,8 @@
+from typing import Generator
+
 import pytest
 
-from selenium import webdriver
+from selenium.webdriver import Chrome
 
 
 def pytest_addoption(parser):
@@ -18,17 +20,22 @@ def language(request):
 
 
 @pytest.fixture
-def browser(request, language):
+def browser(request, language) -> Generator[Chrome]:
 
     if len(language) > 2 or language.isnumeric():
         raise pytest.UsageError('--language option should contain two letters')
 
-    browser = webdriver.Chrome()
+    browser = Chrome()
     yield browser
 
     browser.quit()
 
 
+@pytest.fixture
+def main_page_url() -> str:
+    return "http://selenium1py.pythonanywhere.com/"
+
+
 @pytest.fixture(scope='session', autouse=True)
-def page_url(request, language):
+def product_page_url(request, language) -> str:
     return f'https://selenium1py.pythonanywhere.com/{language}/catalogue/coders-at-work_207/'

@@ -13,28 +13,26 @@ class ProductPage(BasePage):
     LOCATOR_PRODUCT_ADDED_MESSAGE_TEXT: tuple[str, str] = (By.CSS_SELECTOR, '#messages > :first-child strong')
     LOCATOR_CART_TOTAL_PRICE_MESSAGE_TEXT: tuple[str, str] = (By.CSS_SELECTOR, '#messages > :last-child strong')
 
-    def add_to_cart(self):
+    def add_to_cart(self) -> None:
         cart_btn = self.find_element(locator=self.LOCATOR_ADD_TO_CART_BUTTON)
         cart_btn.click()
 
-    def product_name(self):
-        element = self.find_element(self.LOCATOR_PRODUCT_NAME)
-        return self.text_of_element(element)
+    def product_name(self) -> str | None:
+        return self.find_element(self.LOCATOR_PRODUCT_NAME).text
 
-    def product_price(self):
-        element = self.find_element(self.LOCATOR_PRODUCT_PRICE)
-        return self.text_of_element(element)
+    def product_price(self) -> str | None:
+        return self.find_element(self.LOCATOR_PRODUCT_PRICE).text
 
-    def product_added_name_should_be_equal_to_product_name(self):
+    def product_added_name_should_be_equal_to_product_name(self) -> bool:
         element = self.find_element(self.LOCATOR_PRODUCT_ADDED_MESSAGE_TEXT)
-        return self.product_name() == self.text_of_element(element)
+        return self.product_name() == element.text
 
-    def product_added_price_should_be_equal_to_product_price(self):
+    def product_added_price_should_be_equal_to_product_price(self) -> bool:
         element = self.find_element(self.LOCATOR_CART_TOTAL_PRICE_MESSAGE_TEXT)
-        return self.product_price() == self.text_of_element(element)
+        return self.product_price() == element.text
 
-    def should_be_message_with_added_product(self):
+    def should_be_message_with_added_product(self) -> bool:
         return self.element_is_present(self.LOCATOR_PRODUCT_ADDED_MESSAGE)
 
-    def should_be_message_cart_total_price_change(self):
+    def should_be_message_cart_total_price_change(self) -> bool:
         return self.element_is_present(self.LOCATOR_CART_TOTAL_PRICE_MESSAGE)
