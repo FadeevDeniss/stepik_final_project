@@ -36,4 +36,4 @@ def main_page_url() -> str:
 
 @pytest.fixture(scope='session', autouse=True)
 def product_page_url(request, language) -> str:
-    return f'https://selenium1py.pythonanywhere.com/{language}/catalogue/coders-at-work_207/'
+    return f'http://selenium1py.pythonanywhere.com/{language}/catalogue/coders-at-work_207/'
