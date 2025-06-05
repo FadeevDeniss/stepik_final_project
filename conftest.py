@@ -1,5 +1,3 @@
-from typing import Generator
-
 import pytest
 
 from selenium.webdriver import Chrome
@@ -20,7 +18,7 @@ def language(request):
 
 
 @pytest.fixture
-def browser(request, language) -> Generator[Chrome]:
+def browser(request, language):
 
     if len(language) > 2 or language.isnumeric():
         raise pytest.UsageError('--language option should contain two letters')

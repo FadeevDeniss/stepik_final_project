@@ -13,6 +13,7 @@ class BasePage:
     LOCATOR_LOGIN_LINK: tuple[str, str] = (By.CSS_SELECTOR, "#login_link")
     LOCATOR_BASKET_LINK: tuple[str, str] = (By.CSS_SELECTOR, 'a[href="/ru/basket/"]')
     LOCATOR_LOGIN_LINK_INVALID: tuple[str, str] = (By.CSS_SELECTOR, "#login_link_inc")
+    LOCATOR_USER_ICON: tuple[str, str] = (By.CSS_SELECTOR, ".icon-user")
 
     def __init__(self, browser: Chrome, url: str):
         self.browser = browser
@@ -84,3 +85,6 @@ class BasePage:
 
     def should_be_login_link(self) -> bool:
         return self.element_is_present(self.LOCATOR_LOGIN_LINK)
+
+    def should_be_authorized_user(self):
+        return self.element_is_present(self.LOCATOR_USER_ICON)
